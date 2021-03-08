@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setup(
     name="toolgui",
     version="0.0.3",
-    description="toolgui",
+    description="Simple app to manage imgui windows for development tools written in python.",
     packages=find_packages(),
     long_description=long_description,
     long_description_content_type="text/markdown",
