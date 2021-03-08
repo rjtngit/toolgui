@@ -6,16 +6,26 @@ from imgui.integrations.glfw import GlfwRenderer
 
 from toolgui import _menu
 
-update_callbacks = []
+class AppData:
+    app_name = "toolgui"
+    update_callbacks = []
 
 
 def on_update():
+    """
+    @on_update()
+
+    Decorator to add a static function to the event loop to be called every frame.
+    """
     def dec(callback):
-        update_callbacks.append(callback)
+        AppData.update_callbacks.append(callback)
     return dec
 
 
 def start_toolgui_app():
+    """
+    Start the application.
+    """
     imgui.create_context()
     window = _impl_glfw_init()
     impl = GlfwRenderer(window)
@@ -27,7 +37,7 @@ def start_toolgui_app():
         imgui.new_frame()
 
         _menu.update_main_menu()
-        for update_callback in update_callbacks:
+        for update_callback in AppData.update_callbacks:
             update_callback()
 
         gl.glClearColor(0, 0, 0, 0)
@@ -43,7 +53,7 @@ def start_toolgui_app():
 
 def _impl_glfw_init():
     width, height = 800, 600
-    window_name = "ToolGui"
+    window_name = AppData.app_name
 
     if not glfw.init():
         print("Could not initialize OpenGL context")
@@ -68,3 +78,10 @@ def _impl_glfw_init():
         exit(1)
 
     return window
+
+
+def set_app_name(name):
+    """
+    Set the name of the application.
+    """
+    AppData.app_name = name

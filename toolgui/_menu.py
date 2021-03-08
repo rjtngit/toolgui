@@ -1,6 +1,7 @@
 import imgui
 
-menu_top_nodes = []
+class MenuData:
+    menu_top_nodes = []
 
 
 class MenuNode:
@@ -12,6 +13,12 @@ class MenuNode:
 
 
 def menu_item(path):
+    """
+    @menu_item(Path)
+
+    Decorator to call a static function from the main menu.
+    Use forward slashes (/) to separate menu levels.
+    """
     def dec(callback):
         add_menu_data(path, callback)
     return dec
@@ -22,13 +29,13 @@ def add_menu_data(path, callback):
     path_remainder = path.split("/", 1)[1]
     last_node_name = path.rsplit("/", 1)[1]
     leaf_node = MenuNode(path, last_node_name, callback)
-    for node in menu_top_nodes:
+    for node in MenuData.menu_top_nodes:
         if first_node_name == node.name and not node.callback:
             build_tree(node, path_remainder, leaf_node)
             return
     first_node = MenuNode(first_node_name, first_node_name)
     build_tree(first_node, path_remainder, leaf_node)
-    menu_top_nodes.append(first_node)
+    MenuData.menu_top_nodes.append(first_node)
 
 
 def build_tree(from_node, path, end_node):
@@ -60,6 +67,6 @@ def update_menu_from_node(node):
 
 def update_main_menu():
     if imgui.begin_main_menu_bar():
-        for node in menu_top_nodes:
+        for node in MenuData.menu_top_nodes:
             update_menu_from_node(node)
         imgui.end_main_menu_bar()
