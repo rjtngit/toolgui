@@ -6,13 +6,12 @@ from imgui.integrations.glfw import GlfwRenderer
 
 from toolgui import _menu
 
-gui_callbacks = []
+update_callbacks = []
 
 
 def on_update():
     def dec(callback):
-        gui_callbacks.append(callback)
-
+        update_callbacks.append(callback)
     return dec
 
 
@@ -28,11 +27,10 @@ def start_toolgui_app():
         imgui.new_frame()
 
         _menu.update_main_menu()
+        for update_callback in update_callbacks:
+            update_callback()
 
-        for callback in gui_callbacks:
-            callback()
-
-        gl.glClearColor(1., 1., 1., 1)
+        gl.glClearColor(0, 0, 0, 0)
         gl.glClear(gl.GL_COLOR_BUFFER_BIT)
 
         imgui.render()
@@ -44,8 +42,8 @@ def start_toolgui_app():
 
 
 def _impl_glfw_init():
-    width, height = 1280, 720
-    window_name = "minimal ImGui/GLFW3 example"
+    width, height = 800, 600
+    window_name = "ToolGui"
 
     if not glfw.init():
         print("Could not initialize OpenGL context")

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="toolgui",
-    version="0.0.1",
+    version="0.0.0",
     description="toolgui",
     package_dir={"": "toolgui"},
     long_description=long_description,
@@ -13,8 +13,8 @@ setup(
     url="https://github.com/rempelj/toolgui",
     author="Justin Rempel",
     author_email="justinrempel@gmail.com",
-    classifiers=['Development Status :: 1 - Planning'],
+    classifiers=["Development Status :: 1 - Planning"],
     install_requires=[
-        "imgui",
+        "imgui[glfw]",
     ],
 )
