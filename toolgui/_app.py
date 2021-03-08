@@ -6,6 +6,15 @@ from imgui.integrations.glfw import GlfwRenderer
 
 from toolgui import _menu
 
+gui_callbacks = []
+
+
+def on_update():
+    def dec(callback):
+        gui_callbacks.append(callback)
+
+    return dec
+
 
 def start_toolgui_app():
     imgui.create_context()
@@ -20,14 +29,8 @@ def start_toolgui_app():
 
         _menu.update_main_menu()
 
-        imgui.begin("Custom window", True)
-        imgui.text("Bar")
-        imgui.text_ansi("B\033[31marA\033[mnsi ")
-        imgui.text_ansi_colored("Eg\033[31mgAn\033[msi ", 0.2, 1., 0.)
-        imgui.extra.text_ansi_colored("Eggs", 0.2, 1., 0.)
-        imgui.end()
-
-        imgui.show_test_window()
+        for callback in gui_callbacks:
+            callback()
 
         gl.glClearColor(1., 1., 1., 1)
         gl.glClear(gl.GL_COLOR_BUFFER_BIT)

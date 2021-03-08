@@ -14,7 +14,6 @@ class MenuNode:
 def menu_item(path):
     def dec(callback):
         add_menu_data(path, callback)
-
     return dec
 
 
