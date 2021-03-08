@@ -17,4 +17,10 @@ setup(
     install_requires=[
         "imgui[glfw]",
     ],
+    extras_require={
+        "dev": [
+            "twine",
+            "wheel",
+        ],
+    },
 )

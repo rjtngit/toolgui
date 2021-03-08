@@ -1,3 +1,26 @@
+bleach==3.3.0
+certifi==2020.12.5
+chardet==4.0.0
+colorama==0.4.4
+docutils==0.16
 glfw==2.1.0
+idna==2.10
 imgui==1.3.0
+importlib-metadata==3.7.2
+keyring==23.0.0
+packaging==20.9
+pkginfo==1.7.0
+Pygments==2.8.1
 PyOpenGL==3.1.5
+pyparsing==2.4.7
+readme-renderer==29.0
+requests==2.25.1
+requests-toolbelt==0.9.1
+rfc3986==1.4.0
+six==1.15.0
+-e git+git@github.com:rempelj/toolgui.git@00f7ea9ce0e16ceb16862d5e6352176da11964a1#egg=toolgui
+tqdm==4.59.0
+twine==3.3.0
+urllib3==1.26.3
+webencodings==0.5.1
+zipp==3.4.1
