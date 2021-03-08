@@ -18,7 +18,6 @@ requests==2.25.1
 requests-toolbelt==0.9.1
 rfc3986==1.4.0
 six==1.15.0
--e git+git@github.com:rempelj/toolgui.git@00f7ea9ce0e16ceb16862d5e6352176da11964a1#egg=toolgui
 tqdm==4.59.0
 twine==3.3.0
 urllib3==1.26.3
