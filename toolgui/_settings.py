@@ -1,5 +1,6 @@
 import toolgui
 import configparser
+import ast
 
 _UNSET = object()
 
@@ -19,7 +20,7 @@ def settings(name):
             for var in dir(settings_class):
                 if not var.startswith("_"):
                     val = getattr(settings_class, var)
-                    config.set(name, var, str(val))
+                    config.set(name, var, repr(val))
             with open("toolgui.ini", 'w') as configfile:
                 config.write(configfile)
 
@@ -33,6 +34,11 @@ def settings(name):
                 if not var.startswith("_"):
                     val = config.get(name, var, fallback=_UNSET)
                     if val is not _UNSET:
-                        setattr(settings_class, var, val)
+                        try:
+                            setattr(settings_class, var, ast.literal_eval(val))
+                        except ValueError as exc:
+                            print(f"Malformed settings data: "
+                                  f"{settings_class.__name__}."
+                                  f"{var} = {str(val)}")
         return settings_class
     return dec
