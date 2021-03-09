@@ -1,6 +1,6 @@
 # toolgui
 
-Simple app to facilitate managing [imgui](https://github.com/swistakm/pyimgui) windows for development tools written in python. 
+Simple app to facilitate managing [imgui](https://github.com/swistakm/pyimgui) windows for development tools written in Python. 
 
 ![](https://github.com/rempelj/toolgui/raw/master/docs/images/toolgui.gif)
 
