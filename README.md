@@ -2,6 +2,8 @@
 
 Simple app to manage imgui windows for development tools written in python. 
 
+![](https://github.com/rempelj/toolgui/raw/master/docs/images/toolgui.gif)
+
 ## Installation
 
 ```
