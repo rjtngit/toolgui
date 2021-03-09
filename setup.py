@@ -11,6 +11,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/rempelj/toolgui",
+    author="Justin Rempel",
     classifiers=["Development Status :: 1 - Planning"],
     install_requires=[
         "imgui[glfw]",
