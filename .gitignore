@@ -1,6 +1,7 @@
 .idea/
 venv/
 imgui.ini
+toolgui.ini
 __pycache__/
 *.egg-info/
 build/

@@ -1,21 +1,20 @@
 import imgui
 import toolgui
 
-
-class State:
-    window_enabled = False
+@toolgui.settings("example")
+class Settings:
+    window_open = False
 
 
 @toolgui.menu_item("Example/Hello World")
 def show_window():
-    State.window_enabled = True
+    Settings.window_open = True
 
 
 @toolgui.on_update()
 def update_window():
-    if State.window_enabled:
-        expanded, opened = imgui.begin("Hello World", True)
-        State.window_enabled = opened
+    if Settings.window_open:
+        expanded, Settings.window_open = imgui.begin("Hello World", True)
         imgui.text("Hello world")
         imgui.end()
 

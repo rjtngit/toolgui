@@ -6,9 +6,11 @@ from imgui.integrations.glfw import GlfwRenderer
 
 from toolgui import _menu
 
-class AppData:
+class State:
     app_name = "toolgui"
     update_callbacks = []
+    quit_callbacks = []
+    start_callbacks = []
 
 
 def on_update():
@@ -18,9 +20,28 @@ def on_update():
     Decorator to add a static function to the event loop to be called every frame.
     """
     def dec(callback):
-        AppData.update_callbacks.append(callback)
+        State.update_callbacks.append(callback)
     return dec
 
+def on_app_quit():
+    """
+    @on_app_quit()
+
+    Decorator to call a static function when the application quits.
+    """
+    def dec(callback):
+        State.quit_callbacks.append(callback)
+    return dec
+
+def on_app_start():
+    """
+    @on_app_start()
+
+    Decorator to call a static function when the application starts.
+    """
+    def dec(callback):
+        State.start_callbacks.append(callback)
+    return dec
 
 def start_toolgui_app():
     """
@@ -30,6 +51,9 @@ def start_toolgui_app():
     window = _impl_glfw_init()
     impl = GlfwRenderer(window)
 
+    for on_start in State.start_callbacks:
+        on_start()
+
     while not glfw.window_should_close(window):
         glfw.poll_events()
         impl.process_inputs()
@@ -37,8 +61,8 @@ def start_toolgui_app():
         imgui.new_frame()
 
         _menu.update_main_menu()
-        for update_callback in AppData.update_callbacks:
-            update_callback()
+        for on_update in State.update_callbacks:
+            on_update()
 
         gl.glClearColor(0, 0, 0, 0)
         gl.glClear(gl.GL_COLOR_BUFFER_BIT)
@@ -47,13 +71,16 @@ def start_toolgui_app():
         impl.render(imgui.get_draw_data())
         glfw.swap_buffers(window)
 
+    for on_quit in State.quit_callbacks:
+        on_quit()
+
     impl.shutdown()
     glfw.terminate()
 
 
 def _impl_glfw_init():
     width, height = 800, 600
-    window_name = AppData.app_name
+    window_name = State.app_name
 
     if not glfw.init():
         print("Could not initialize OpenGL context")
@@ -84,4 +111,4 @@ def set_app_name(name):
     """
     Set the name of the application.
     """
-    AppData.app_name = name
+    State.app_name = name
