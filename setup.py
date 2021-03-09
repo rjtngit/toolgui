@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setup(
     name="toolgui",
     version="0.0.4",
-    description="Simple event-driven Python GUI framework for building modular tools with ImGui.",
+    description="Simple event-driven GUI framework for building modular tools with Python and ImGui.",
     packages=find_packages(),
     long_description=long_description,
     long_description_content_type="text/markdown",
