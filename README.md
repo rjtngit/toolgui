@@ -1,6 +1,6 @@
 # toolgui
 
-Simple event-driven GUI framework for building modular tools with Python and [Dear ImGui](https://github.com/swistakm/pyimgui). 
+Modular event-driven GUI system for quickly building tools with Python and [pyimgui](https://github.com/swistakm/pyimgui). 
 
 ![](https://github.com/rempelj/toolgui/raw/master/docs/images/toolgui.gif)
 
