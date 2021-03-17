@@ -1,6 +1,7 @@
 import imgui
 import toolgui
 
+
 @toolgui.settings("example")
 class Settings:
     window_open = False
