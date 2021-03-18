@@ -21,7 +21,7 @@ def settings(name):
                 if not var.startswith("_"):
                     val = getattr(settings_class, var)
                     config.set(name, var, repr(val))
-            with open("toolgui.ini", 'w') as configfile:
+            with open("toolgui.ini", 'w+') as configfile:
                 config.write(configfile)
 
         @toolgui.on_app_start()
