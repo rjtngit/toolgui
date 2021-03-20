@@ -6,7 +6,6 @@ import toolgui
 class Settings:
     window_open = False
 
-
 @toolgui.menu_item("Example/Hello World")
 def show_window():
     Settings.window_open = True

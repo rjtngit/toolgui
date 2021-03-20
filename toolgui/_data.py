@@ -3,6 +3,57 @@ import configparser
 import ast
 
 _UNSET = object()
+_LITERALS = (int, float, bool, str)
+
+
+
+@toolgui.on_app_start()
+def init_default_data():
+    for cls in get_all_subclasses(StaticData):
+        cls._init()
+
+def get_all_subclasses(cls):
+    all_subclasses = []
+
+    for subclass in cls.__subclasses__():
+        all_subclasses.append(subclass)
+        all_subclasses.extend(get_all_subclasses(subclass))
+
+    return all_subclasses
+
+class StaticData:
+    @classmethod
+    def _init(cls):
+        cls._defaults = {}
+        for var in vars(cls):
+            if not var.startswith("_"):
+                curval = getattr(cls, var)
+                if type(curval) in _LITERALS:
+                    cls._defaults[var] = curval
+
+    @classmethod
+    def reset(cls):
+        for var in vars(cls):
+            if not var.startswith("_"):
+                curval = getattr(cls, var)
+                if type(curval) in _LITERALS:
+                    default_val = cls._defaults[var]
+                    setattr(cls, var, default_val)
+
+    @classmethod
+    def count_values(cls):
+        result = 0
+        for var in dir(cls):
+            if not var.startswith("_"):
+                val = getattr(cls, var)
+                if val and type(val) in _LITERALS:
+                    result += 1
+        return result
+
+    @classmethod
+    def has_any_values(cls):
+        return cls.count_values() > 0
+
 
 def settings(name):
     """
