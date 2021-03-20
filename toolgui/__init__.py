@@ -6,3 +6,4 @@ from ._app import on_app_quit
 from ._menu import menu_item
 from ._data import StaticData
 from ._data import settings
+from ._window import window_update
