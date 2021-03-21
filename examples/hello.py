@@ -1,7 +1,7 @@
 import imgui
 import toolgui
 
-@toolgui.window_update("Example/Hello World")
+@toolgui.window("Example/Hello World")
 def hello_example():
     imgui.text("Hello!")
 

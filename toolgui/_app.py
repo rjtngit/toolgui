@@ -4,7 +4,6 @@ import OpenGL.GL as gl
 import imgui
 from imgui.integrations.glfw import GlfwRenderer
 
-from toolgui import _menu
 
 class State:
     app_name = "toolgui"
@@ -60,7 +59,6 @@ def start_toolgui_app():
 
         imgui.new_frame()
 
-        _menu.update_main_menu()
         for on_update in State.update_callbacks:
             on_update()
 
