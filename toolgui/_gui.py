@@ -27,8 +27,15 @@ def menu_item(path):
 
 def add_menu_data(path, callback):
     first_node_name = path.split("/", 1)[0]
-    path_remainder = path.split("/", 1)[1]
-    last_node_name = path.rsplit("/", 1)[1]
+    try:
+        path_remainder = path.split("/", 1)[1]
+    except Exception:
+        path_remainder = first_node_name
+    try:
+        last_node_name = path.rsplit("/", 1)[1]
+    except Exception:
+        last_node_name = first_node_name
+
     leaf_node = MenuNode(path, last_node_name, callback)
     for node in State.menu_top_nodes:
         if first_node_name == node.name and not node.callback:
@@ -92,7 +99,10 @@ def window(menu_path):
         @toolgui.on_update()
         def update_window():
             if Settings.window_open:
-                window_name = menu_path.rsplit("/", 1)[1]
+                try:
+                    window_name = menu_path.rsplit("/", 1)[1]
+                except Exception:
+                    window_name = menu_path.rsplit("/", 1)[0]
                 expanded, Settings.window_open = imgui.begin(window_name, True)
                 update_func()
                 imgui.end()
