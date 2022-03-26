@@ -52,7 +52,7 @@ Call a static function from the menu bar.
 
 ```python
 @toolgui.menu_item("Example/Reset")
-def on_app_start():
+def reset():
     Settings.my_number = 0
 ```
 
