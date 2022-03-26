@@ -23,6 +23,7 @@ import toolgui
 def hello_example():
     imgui.text("Hello!")
 
+toolgui.set_app_name("toolgui example")
 toolgui.start_toolgui_app()
 ```
 
@@ -42,6 +43,7 @@ class Settings:
 def number_picker():
     Settings.my_number = imgui.input_int("My Number", Settings.my_number, 1)[1]
 
+toolgui.set_app_name("toolgui example")
 toolgui.start_toolgui_app()
 
 ```
