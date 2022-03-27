@@ -5,4 +5,5 @@ import toolgui
 def hello_example():
     imgui.text("Hello!")
 
+toolgui.set_app_name("Hello World Example")
 toolgui.start_toolgui_app()

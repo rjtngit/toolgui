@@ -23,7 +23,7 @@ import toolgui
 def hello_example():
     imgui.text("Hello!")
 
-toolgui.set_app_name("toolgui example")
+toolgui.set_app_name("Hello World Example")
 toolgui.start_toolgui_app()
 ```
 
@@ -43,7 +43,7 @@ class Settings:
 def number_picker():
     Settings.my_number = imgui.input_int("My Number", Settings.my_number, 1)[1]
 
-toolgui.set_app_name("toolgui example")
+toolgui.set_app_name("Number Picker Example")
 toolgui.start_toolgui_app()
 
 ```
@@ -66,7 +66,7 @@ Executed when the application starts.
 ```python
 @toolgui.on_app_start()
 def on_app_start():
-    # do_something()
+    print("Application started")
 ```
 
 #### Application Quit
@@ -74,7 +74,7 @@ Executed when the application quits.
 ```python
 @toolgui.on_app_quit()
 def on_app_quit():
-    # do_something()
+    print("Application quit")
 ```
 
 #### Update
