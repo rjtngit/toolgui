@@ -1,12 +1,17 @@
+import os
+
 import glfw
 import OpenGL.GL as gl
 
 import imgui
 from imgui.integrations.glfw import GlfwRenderer
 
+import toolgui
+
 
 class State:
     app_name = "toolgui"
+    style = {}
     update_callbacks = []
     quit_callbacks = []
     start_callbacks = []
@@ -42,6 +47,36 @@ def on_app_start():
         State.start_callbacks.append(callback)
     return dec
 
+
+def init_style(window, impl):
+    # font
+    win_w, win_h = glfw.get_window_size(window)
+    fb_w, fb_h = glfw.get_framebuffer_size(window)
+    font_scaling_factor = max(float(fb_w) / win_w, float(fb_h) / win_h)
+    font_size_in_pixels = 14
+    io = imgui.get_io()
+    font_path = os.path.join(os.path.dirname(toolgui.__file__), "Roboto-Regular.ttf")
+    State.style["font"] = io.fonts.add_font_from_file_ttf(
+        font_path, font_size_in_pixels * font_scaling_factor,
+        io.fonts.get_glyph_ranges_default()
+    )
+    io.font_global_scale /= font_scaling_factor
+    impl.refresh_font_texture()
+
+    # colors
+    style = imgui.get_style()
+    imgui.style_colors_light(style)
+    style.colors[imgui.COLOR_BORDER] = (1, 1, 1, 1)
+
+
+def push_style():
+    imgui.push_font(State.style["font"])
+
+
+def pop_style():
+    imgui.pop_font()
+
+
 def start_toolgui_app():
     """
     Start the application.
@@ -49,6 +84,8 @@ def start_toolgui_app():
     imgui.create_context()
     window = _impl_glfw_init()
     impl = GlfwRenderer(window)
+
+    init_style(window, impl)
 
     for on_start in State.start_callbacks:
         on_start()
@@ -59,12 +96,13 @@ def start_toolgui_app():
 
         imgui.new_frame()
 
+        push_style()
         for on_update in State.update_callbacks:
             on_update()
+        pop_style()
 
         gl.glClearColor(0, 0, 0, 0)
         gl.glClear(gl.GL_COLOR_BUFFER_BIT)
-
         imgui.render()
         impl.render(imgui.get_draw_data())
         glfw.swap_buffers(window)
@@ -110,3 +148,4 @@ def set_app_name(name):
     Set the name of the application.
     """
     State.app_name = name
+

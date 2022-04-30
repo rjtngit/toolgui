@@ -5,9 +5,11 @@ with open("README.md", "r") as fh:
 
 setup(
     name="toolgui",
-    version="0.0.8",
+    version="0.0.9",
     description="Modular event-driven GUI system for quickly building tools with Python and pyimgui.",
     packages=find_packages(),
+    package_data={'': ['Roboto-Regular.ttf']},
+    include_package_data=True,
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/rempelj/toolgui",
