@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="toolgui",
-    version="0.0.9",
+    version="0.0.10",
     description="Modular event-driven GUI system for quickly building tools with Python and pyimgui.",
     packages=find_packages(),
     package_data={'': ['Roboto-Regular.ttf']},
